@@ -104,7 +104,10 @@ class TestDialog( QDialog ):
 
     #-----------------------------------------------
     def UpdateMissedLetters( self ):
-        self.sTestCase[2] = 'Insert correct letters {}'.format(set(self.ui.edMissedLetters.text()))
+        self.sTestCase[2] = 'Insert correct letters: "{}"'.format(str.join(',', [str(x) for x in self.ui.edMissedLetters.text()]))
+            #format(str(set(self.ui.edMissedLetters.text())))
+            #format((str(x) for x in self.ui.edMissedLetters.text()))
+            #format(str(self.ui.edMissedLetters.text()))
 
 
     #-----------------------------------------------
@@ -116,12 +119,12 @@ class TestDialog( QDialog ):
 
             d = dict()
 
-            d['MemoIn'] = self.ui.mMemoIn.toPlainText()
-            d['MemoOut'] = self.ui.mMemoOut.toPlainText()
-            d['Variant'] = self.ui.spVariantNumber.text()
-            d['Missed'] = self.ui.edMissedLetters.text()
-            d['Underscore'] = self.ui.spUnderscorePart.text()
-            d['TestCase'] = self.ui.cbTestCase.currentIndex()
+            d['MemoIn'] = str(self.ui.mMemoIn.toPlainText())
+            d['MemoOut'] = str(self.ui.mMemoOut.toPlainText())
+            d['Variant'] = int(self.ui.spVariantNumber.text())
+            d['Missed'] = str(self.ui.edMissedLetters.text())
+            d['Underscore'] = float(self.ui.spUnderscorePart.text())
+            d['TestCase'] = int(self.ui.cbTestCase.currentIndex())
 
             json.dump(d, output)
 

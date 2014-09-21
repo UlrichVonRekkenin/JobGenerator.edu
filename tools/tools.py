@@ -19,7 +19,8 @@ class RandomOrderOfLetters( object ):
 
     #-----------------------------------------------
     def RandomLetters( self ):
-        return str.join('', Shuffle(list(self.word)))
+        #return str.join('', Shuffle(list(self.word)))
+        return str.join('', [str(x) for x in Shuffle(list(self.word))])
 
 
 #-----------------------------------------------
@@ -37,7 +38,8 @@ class ReplaceSomeLettersByUnderline( object ):
 
         for i in random.sample( range(self.lenght), int(self.lenght * self.percent / 100.0) ):
             self.rword[i] = "_"
-        return str.join(' ', self.rword)
+        #return str.join(' ', self.rword)
+        return str.join(' ', [str(x) for x in self.rword])
 
 
 #-----------------------------------------------
@@ -56,7 +58,8 @@ class MissSpecialLetters( object ):
             if letter in self.special:
                 self.rword[i] = '_'
 
-        return str.join(' ', self.rword)
+        #return str.join(' ', self.rword)
+        return str.join(' ', [str(x) for x in self.rword])
 
 
 #-----------------------------------------------
@@ -67,8 +70,8 @@ class MatchCoupleOfWords( object ):
         self.col1, self.col2 = [], []
 
         for line in tuple(filter(len, lines.split('\n'))):
-            self.col1.append(line.split(':')[0])
-            self.col2.append(line.split(':')[1])
+            self.col1.append(str(line.split(':')[0]))
+            self.col2.append(str(line.split(':')[1]))
 
             print(self.col1, self.col2)
 
@@ -87,22 +90,6 @@ class MatchCoupleOfWords( object ):
         else:
             return 'There is no way to shuffle. Please, add more pairs.'
 
-
-###----------------------------------------------
-class RandomOrderOfSentenceInParagraph( object ):
-    ''''''
-    #-----------------------------------------------
-    def __init__( self, sentences = 'This is the first simple sentence.      And another one.' ):
-        self.sentences = list(filter(len, sentences.split('.')))
-
-    def RandomSentence( self ):
-        self.result = ''
-
-        for i, sentence in enumerate(Shuffle(self.sentences), start = 1):
-            self.result += '{}) {}.\n'.format(i, sentence)
-
-        return self.result
-
 #-----------------------------------------------
 class RandomOrderOfWordsInSentences( object ):
     ''' Randomize all words in a given sentences. '''
@@ -120,7 +107,7 @@ class RandomOrderOfWordsInSentences( object ):
                     i, str.join(' ', Shuffle(
                         list(
                             filter(len, tuple(
-                                filter(len, sentence.split(' '))
+                                filter(len, str(sentence).split(' '))
                                 ))
                             )
                         ))
@@ -128,6 +115,22 @@ class RandomOrderOfWordsInSentences( object ):
 
         return self.result
 
+
+
+###----------------------------------------------
+class RandomOrderOfSentenceInParagraph( object ):
+    ''''''
+    #-----------------------------------------------
+    def __init__( self, sentences = 'This is the first simple sentence.      And another one.' ):
+        self.sentences = list(filter(len, str(sentences).split('.')))
+
+    def RandomSentence( self ):
+        self.result = ''
+
+        for i, sentence in enumerate(Shuffle(self.sentences), start = 1):
+            self.result += '{}) {}.\n'.format(i, sentence)
+
+        return self.result
 
 
 

@@ -116,7 +116,7 @@ class Ui_TestDialog(object):
         self.cbTestCase.setItemText(3, _translate("TestDialog", "4. Сопоставить слова", None))
         self.cbTestCase.setItemText(4, _translate("TestDialog", "5. Расположить слова в предложениях в случайном порядке", None))
         self.cbTestCase.setItemText(5, _translate("TestDialog", "6. Расположить предложения в случайном порядке", None))
-        self.edMissedLetters.setText(_translate("TestDialog", "aeiouy", None))
+        self.edMissedLetters.setText(_translate("TestDialog", "", None))
         self.label_3.setText(_translate("TestDialog", "Пропустить эти буквы:", None))
         self.label.setText(_translate("TestDialog", "Количество варинтов:", None))
         self.label_2.setText(_translate("TestDialog", "Часть пропущенных букв:", None))
