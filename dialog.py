@@ -1,7 +1,4 @@
-﻿#!python3
-
-
-from PyQt4.QtGui import QDialog, QApplication
+﻿from PyQt4.QtGui import QDialog, QApplication
 from PyQt4.QtCore import SIGNAL, QThread
 from os.path import isfile, getsize
 import sys
@@ -38,9 +35,6 @@ class TestDialog( QDialog ):
 
         #
         self.connect(self.ui.edMissedLetters, SIGNAL("textChanged(QString)"), self.UpdateMissedLetters)
-
-        #
-#        self.connect(self.ui.mMemoIn, SIGNAL("textChanged()"), self.TestGenerate)
 
         #
         self.LoadDialogFromPickle()
@@ -104,10 +98,12 @@ class TestDialog( QDialog ):
 
     #-----------------------------------------------
     def UpdateMissedLetters( self ):
-        self.sTestCase[2] = 'Insert correct letters: "{}"'.format(str.join(',', [str(x) for x in self.ui.edMissedLetters.text()]))
-            #format(str(set(self.ui.edMissedLetters.text())))
-            #format((str(x) for x in self.ui.edMissedLetters.text()))
-            #format(str(self.ui.edMissedLetters.text()))
+        self.sTestCase[2] = 'Insert correct letters: "{}"'.format(
+                str.join(
+                        ',',
+                        [str(x) for x in self.ui.edMissedLetters.text()]
+                    )
+                )
 
 
     #-----------------------------------------------
