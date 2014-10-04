@@ -5,5 +5,5 @@ JobGenerator.edu
 
 
 Зависимости:  
-1. python3;  
+1. python;  
 2. PyQt4.
