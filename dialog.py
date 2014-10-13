@@ -27,16 +27,9 @@ class TestDialog( QDialog ):
                           'Place the sentences on correct order.',
                          ]
 
-        #
         self.ui.btnTestGenerate.clicked.connect(self.TestGenerate)
-
-        #
         self.connect(self.ui.cbTestCase, SIGNAL("activated(int)"), self.UpdateUiByTestCase)
-
-        #
         self.connect(self.ui.edMissedLetters, SIGNAL("textChanged(QString)"), self.UpdateMissedLetters)
-
-        #
         self.LoadDialogFromPickle()
 
 
@@ -51,8 +44,9 @@ class TestDialog( QDialog ):
 
                 if self.TestCase in [0, 1, 2]:
 
-                        results, words = [], tuple(filter(len, self.ui.mMemoIn.toPlainText().split('\n')))
-
+                        results  = []
+                        words = tuple(filter(len, self.ui.mMemoIn.toPlainText().split('\n')))
+                        
                         if self.TestCase == 0:
                             for word in words:
                                 results.append(tools.RandomOrderOfLetters(word).RandomLetters())
@@ -63,23 +57,31 @@ class TestDialog( QDialog ):
 
                         elif self.TestCase == 2:
                             for word in words:
-                                results.append(tools.MissSpecialLetters(word, self.ui.edMissedLetters.text()).MissLetters())
+                                results.append(
+                                    tools.MissSpecialLetters(
+                                        word, self.ui.edMissedLetters.text()
+                                        ).MissLetters()
+                                    )
 
-
-                        for i, result in enumerate(results, start = 1):
-                            foo += '{0}) {1}\n'.format(i, result)
+                        foo = '\n'.join('{}) {}'.format(*r) for r in enumerate(results, start=1))
 
 
                 elif self.TestCase == 3:
                     foo = tools.MatchCoupleOfWords(self.ui.mMemoIn.toPlainText()).Matching()
 
                 elif self.TestCase == 4:
-                    foo = tools.RandomOrderOfWordsInSentences(self.ui.mMemoIn.toPlainText()).RandomWords()
+                    foo = tools.RandomOrderOfWordsInSentences(
+                            self.ui.mMemoIn.toPlainText()
+                        ).RandomWords()
 
                 elif self.TestCase == 5:
-                    foo = tools.RandomOrderOfSentenceInParagraph(self.ui.mMemoIn.toPlainText()).RandomSentence()
+                    foo = tools.RandomOrderOfSentenceInParagraph(
+                            self.ui.mMemoIn.toPlainText()
+                        ).RandomSentence()
 
-                self.ui.mMemoOut.insertPlainText('Variant #{0}\n{1}\nNAME:\nCLASS:\n{2}\n'.format(var+1, self.sTestCase[self.TestCase], foo))
+                self.ui.mMemoOut.insertPlainText(
+                        'Variant #{0}\n{1}\nNAME:\nCLASS:\n{2}\n\n'.format(var+1, self.sTestCase[self.TestCase], foo)
+                    )
 
     #-----------------------------------------------
     def UpdateUiByTestCase( self ):
@@ -112,17 +114,17 @@ class TestDialog( QDialog ):
         import json
 
         with open(self.JSONFile, 'w') as output:
-
-            d = dict()
-
-            d['MemoIn'] = str(self.ui.mMemoIn.toPlainText())
-            d['MemoOut'] = str(self.ui.mMemoOut.toPlainText())
-            d['Variant'] = int(self.ui.spVariantNumber.text())
-            d['Missed'] = str(self.ui.edMissedLetters.text())
-            d['Underscore'] = str(self.ui.spUnderscorePart.text())
-            d['TestCase'] = int(self.ui.cbTestCase.currentIndex())
-
-            json.dump(d, output)
+            json.dump(
+                {
+                   'MemoIn': str(self.ui.mMemoIn.toPlainText()),
+                   'MemoOut': str(self.ui.mMemoOut.toPlainText()),
+                   'Variant': int(self.ui.spVariantNumber.text()),
+                   'Missed': str(self.ui.edMissedLetters.text()),
+                   'Underscore': str(self.ui.spUnderscorePart.text()),
+                   'TestCase': int(self.ui.cbTestCase.currentIndex())
+                },
+                output
+            )
 
 
     #-----------------------------------------------
