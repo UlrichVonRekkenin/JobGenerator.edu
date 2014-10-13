@@ -1,5 +1,5 @@
 ﻿from PyQt4.QtGui import QDialog, QApplication
-from PyQt4.QtCore import SIGNAL, QThread
+from PyQt4.QtCore import SIGNAL
 from os.path import isfile, getsize
 import sys
 
@@ -119,7 +119,7 @@ class TestDialog( QDialog ):
             d['MemoOut'] = str(self.ui.mMemoOut.toPlainText())
             d['Variant'] = int(self.ui.spVariantNumber.text())
             d['Missed'] = str(self.ui.edMissedLetters.text())
-            d['Underscore'] = float(self.ui.spUnderscorePart.text())
+            d['Underscore'] = str(self.ui.spUnderscorePart.text())
             d['TestCase'] = int(self.ui.cbTestCase.currentIndex())
 
             json.dump(d, output)
