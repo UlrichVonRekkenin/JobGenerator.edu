@@ -1,4 +1,5 @@
 import random
+import re
 
 
 def Shuffle(sequence):
@@ -27,7 +28,6 @@ class ReplaceSomeLettersByUnderline(object):
         self.lenght = len(self.word)
 
     def ReplaceLetters(self):
-
         ret = ''
 
         for split_word in self.word.split():
@@ -91,7 +91,6 @@ class RandomOrderOfWordsInSentences(object):
         self.sentences = tuple(filter(len, sentences.split('.')))
 
     def RandomWords(self):
-
         self.result = ''
 
         for i, sentence in enumerate(self.sentences, start=1):
@@ -99,14 +98,13 @@ class RandomOrderOfWordsInSentences(object):
                 i, str.join(' ', Shuffle(
                     list(
                         filter(len, tuple(
-                            filter(len, str(sentence).split(' '))
+                            filter(len, str(sentence).lower().split(' '))
                         ))
                     )
                 ))
             )
 
         return self.result
-
 
 
 class RandomOrderOfSentenceInParagraph(object):
@@ -121,3 +119,42 @@ class RandomOrderOfSentenceInParagraph(object):
             self.result += '{}) {}.\n'.format(i, sentence)
 
         return self.result
+
+
+class RegExWrapper(object):
+    def __init__(self, sentences=''):
+        self.sentences = sentences
+
+    def RandomSentence(self):
+        ret = ''
+        for s in list(filter(len, self.sentences.split('\n'))):
+            ret += '{}\n'.format(RegExTasker(s).do())
+
+        return ret
+
+
+class RegExTasker(object):
+    def __init__(self, sentence='', flag='"', separator='/'):
+        self.sentence = sentence
+        self.flag = flag
+        self.separator = separator
+        self.pattern = re.compile(r'{0}.*?{0}'.format(self.flag))
+        self.matches = [m.group() for m in self.pattern.finditer(self.sentence)]
+
+
+    def do(self):
+        s = self.sentence
+
+        fv = 15*'_' + ' ({})'
+        fw = '{}'
+
+        for match in self.matches:
+
+            word = random.choice(match[1:-1].split(self.separator))
+
+            if word.startswith('to ') or word.startswith('not to '):
+                s = s.replace(match, fv.format(word))
+            else:
+                s = s.replace(match, fw.format(word))
+
+        return s

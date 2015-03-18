@@ -23,7 +23,8 @@ class TestDialog(QDialog):
             '',
             'Match the words.',
             'Place the words in sentences on correct order.',
-            'Place the sentences on correct order.'
+            'Place the sentences on correct order.',
+            'Write the correct form of the verbs in bracket.'
         ]
 
         self.ui.btnTestGenerate.clicked.connect(self.TestGenerate)
@@ -43,7 +44,7 @@ class TestDialog(QDialog):
                 if self.TestCase in [0, 1, 2]:
 
                     results = []
-                    words = tuple(filter(len, self.ui.mMemoIn.toPlainText().split('\n')))
+                    words = tools.Shuffle(list(filter(len, self.ui.mMemoIn.toPlainText().split('\n'))))
 
                     if self.TestCase == 0:
                         for word in words:
@@ -52,8 +53,12 @@ class TestDialog(QDialog):
                     elif self.TestCase == 1:
                         for word in words:
                             results.append(
-                                tools.ReplaceSomeLettersByUnderline(word).ReplaceLetters()
+                                tools.ReplaceSomeLettersByUnderline(
+                                    word,
+                                    int(self.ui.spUnderscorePart.text())
+                                ).ReplaceLetters()
                             )
+
 
                     elif self.TestCase == 2:
                         for word in words:
@@ -81,6 +86,11 @@ class TestDialog(QDialog):
                         self.ui.mMemoIn.toPlainText()
                     ).RandomSentence()
 
+                elif self.TestCase == 6:
+                    foo = tools.RegExWrapper(
+                        self.ui.mMemoIn.toPlainText()
+                    ).RandomSentence()
+
                 self.ui.mMemoOut.insertPlainText(
                     'Variant #{0}\n{1}\nNAME:\nCLASS:\n{2}\n\n'.format(
                         var + 1, self.sTestCase[self.TestCase], foo
@@ -91,7 +101,7 @@ class TestDialog(QDialog):
     def UpdateUiByTestCase(self):
         self.TestCase = self.ui.cbTestCase.currentIndex()
 
-        if self.TestCase in [0, 3, 4]:
+        if self.TestCase in [0, 3, 4, 5, 6]:
             self.ui.edMissedLetters.setEnabled(False)
             self.ui.spUnderscorePart.setEnabled(False)
         elif self.TestCase == 1:
@@ -142,6 +152,8 @@ class TestDialog(QDialog):
             self.ui.spUnderscorePart.setProperty('value', d['Underscore'])
             self.ui.cbTestCase.setCurrentIndex(d['TestCase'])
             self.TestCase = d['TestCase']
+
+        self.UpdateUiByTestCase()
 
 
 if __name__ == "__main__":

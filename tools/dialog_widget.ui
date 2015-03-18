@@ -62,17 +62,20 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="decimals">
+    <number>0</number>
+   </property>
    <property name="minimum">
-    <double>0.100000000000000</double>
+    <double>10.000000000000000</double>
    </property>
    <property name="maximum">
-    <double>0.900000000000000</double>
+    <double>90.000000000000000</double>
    </property>
    <property name="singleStep">
-    <double>0.050000000000000</double>
+    <double>5.000000000000000</double>
    </property>
    <property name="value">
-    <double>0.500000000000000</double>
+    <double>50.000000000000000</double>
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="mMemoIn">
@@ -156,6 +159,11 @@
      <string>6. Расположить предложения в случайном порядке</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>7. Выбрать глаголы из списка</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLineEdit" name="edMissedLetters">
    <property name="enabled">
@@ -227,15 +235,15 @@
     </font>
    </property>
    <property name="text">
-    <string>Часть пропущенных букв:</string>
+    <string>Часть пропущенных букв, %:</string>
    </property>
   </widget>
   <widget class="QPlainTextEdit" name="mMemoOut">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>366</x>
      <y>140</y>
-     <width>501</width>
+     <width>480</width>
      <height>531</height>
     </rect>
    </property>

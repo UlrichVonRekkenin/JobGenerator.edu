@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'tools/dialog_widget.ui'
+# Form implementation generated from reading ui file 'dialog_widget.ui'
 #
-# Created by: PyQt4 UI code generator 4.9.6
+# Created: Wed Mar 18 20:00:08 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -38,10 +39,11 @@ class Ui_TestDialog(object):
         self.spUnderscorePart = QtGui.QDoubleSpinBox(TestDialog)
         self.spUnderscorePart.setEnabled(False)
         self.spUnderscorePart.setGeometry(QtCore.QRect(670, 70, 61, 22))
-        self.spUnderscorePart.setMinimum(0.1)
-        self.spUnderscorePart.setMaximum(0.9)
-        self.spUnderscorePart.setSingleStep(0.05)
-        self.spUnderscorePart.setProperty("value", 0.5)
+        self.spUnderscorePart.setDecimals(0)
+        self.spUnderscorePart.setMinimum(10.0)
+        self.spUnderscorePart.setMaximum(90.0)
+        self.spUnderscorePart.setSingleStep(5.0)
+        self.spUnderscorePart.setProperty("value", 50.0)
         self.spUnderscorePart.setObjectName(_fromUtf8("spUnderscorePart"))
         self.mMemoIn = QtGui.QPlainTextEdit(TestDialog)
         self.mMemoIn.setGeometry(QtCore.QRect(0, 140, 365, 531))
@@ -64,6 +66,7 @@ class Ui_TestDialog(object):
         self.cbTestCase = QtGui.QComboBox(TestDialog)
         self.cbTestCase.setGeometry(QtCore.QRect(50, 40, 330, 22))
         self.cbTestCase.setObjectName(_fromUtf8("cbTestCase"))
+        self.cbTestCase.addItem(_fromUtf8(""))
         self.cbTestCase.addItem(_fromUtf8(""))
         self.cbTestCase.addItem(_fromUtf8(""))
         self.cbTestCase.addItem(_fromUtf8(""))
@@ -96,7 +99,7 @@ class Ui_TestDialog(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.mMemoOut = QtGui.QPlainTextEdit(TestDialog)
-        self.mMemoOut.setGeometry(QtCore.QRect(360, 140, 501, 531))
+        self.mMemoOut.setGeometry(QtCore.QRect(366, 140, 480, 531))
         self.mMemoOut.setReadOnly(True)
         self.mMemoOut.setCenterOnScroll(True)
         self.mMemoOut.setObjectName(_fromUtf8("mMemoOut"))
@@ -116,9 +119,10 @@ class Ui_TestDialog(object):
         self.cbTestCase.setItemText(3, _translate("TestDialog", "4. Сопоставить слова", None))
         self.cbTestCase.setItemText(4, _translate("TestDialog", "5. Расположить слова в предложениях в случайном порядке", None))
         self.cbTestCase.setItemText(5, _translate("TestDialog", "6. Расположить предложения в случайном порядке", None))
-        self.edMissedLetters.setText(_translate("TestDialog", "", None))
+        self.cbTestCase.setItemText(6, _translate("TestDialog", "7. Выбрать глаголы из списка", None))
+        self.edMissedLetters.setText(_translate("TestDialog", "aeiouy", None))
         self.label_3.setText(_translate("TestDialog", "Пропустить эти буквы:", None))
         self.label.setText(_translate("TestDialog", "Количество варинтов:", None))
-        self.label_2.setText(_translate("TestDialog", "Часть пропущенных букв:", None))
+        self.label_2.setText(_translate("TestDialog", "Часть пропущенных букв, %:", None))
         self.btnTestGenerate.setText(_translate("TestDialog", "Генерировать задания", None))
 
