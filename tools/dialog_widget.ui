@@ -100,33 +100,13 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>10</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>Тип задания:</string>
-   </property>
-  </widget>
   <widget class="QComboBox" name="cbTestCase">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>9</x>
      <y>40</y>
-     <width>330</width>
-     <height>22</height>
+     <width>370</width>
+     <height>23</height>
     </rect>
    </property>
    <item>
@@ -257,9 +237,9 @@
   <widget class="QPushButton" name="btnTestGenerate">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>9</x>
      <y>90</y>
-     <width>330</width>
+     <width>370</width>
      <height>23</height>
     </rect>
    </property>

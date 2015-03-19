@@ -58,7 +58,6 @@ class MissSpecialLetters(object):
         return ' '.join([str(x) for x in self.rword])
 
 
-
 class MatchCoupleOfWords(object):
     '''M...'''
     def __init__(self, lines='foo : bar'):
@@ -127,8 +126,8 @@ class RegExWrapper(object):
 
     def RandomSentence(self):
         ret = ''
-        for s in list(filter(len, self.sentences.split('\n'))):
-            ret += '{}\n'.format(RegExTasker(s).do())
+        for i, s in enumerate(list(filter(len, self.sentences.split('\n'))), start=1):
+            ret += '{}) {}\n'.format(i, RegExTasker(s).do())
 
         return ret
 
@@ -141,11 +140,10 @@ class RegExTasker(object):
         self.pattern = re.compile(r'{0}.*?{0}'.format(self.flag))
         self.matches = [m.group() for m in self.pattern.finditer(self.sentence)]
 
-
     def do(self):
         s = self.sentence
 
-        fv = 15*'_' + ' ({})'
+        fv = 20*'_' + ' ({})'
         fw = '{}'
 
         for match in self.matches:
