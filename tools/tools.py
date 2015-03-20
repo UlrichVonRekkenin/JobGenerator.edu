@@ -135,9 +135,7 @@ class RegExWrapper(object):
 class RegExTasker(object):
     def __init__(self, sentence='', flag='"', separator='/'):
         self.sentence = sentence
-        # self.flag = flag
         self.separator = separator
-        # self.pattern = re.compile(r'{0}.*?{0}'.format(self.flag))
         self.matches = [
             m.group() for m in
             re.compile(r'{0}.*?{0}'.format(flag)).finditer(self.sentence)
