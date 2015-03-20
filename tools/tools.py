@@ -135,24 +135,24 @@ class RegExWrapper(object):
 class RegExTasker(object):
     def __init__(self, sentence='', flag='"', separator='/'):
         self.sentence = sentence
-        self.flag = flag
+        # self.flag = flag
         self.separator = separator
-        self.pattern = re.compile(r'{0}.*?{0}'.format(self.flag))
-        self.matches = [m.group() for m in self.pattern.finditer(self.sentence)]
+        # self.pattern = re.compile(r'{0}.*?{0}'.format(self.flag))
+        self.matches = [
+            m.group() for m in
+            re.compile(r'{0}.*?{0}'.format(flag)).finditer(self.sentence)
+        ]
 
     def do(self):
         s = self.sentence
-
-        fv = 20*'_' + ' ({})'
-        fw = '{}'
 
         for match in self.matches:
 
             word = random.choice(match[1:-1].split(self.separator))
 
             if word.startswith('to ') or word.startswith('not to '):
-                s = s.replace(match, fv.format(word))
+                s = s.replace(match, 20*'_' + ' ({})'.format(word))
             else:
-                s = s.replace(match, fw.format(word))
+                s = s.replace(match, '{}'.format(word))
 
         return s

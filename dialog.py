@@ -26,8 +26,19 @@ class TestDialog(QDialog):
         ]
 
         self.btnTestGenerate.clicked.connect(self.TestGenerate)
-        self.connect(self.cbTestCase, SIGNAL("activated(int)"), self.UpdateUiByTestCase)
-        self.connect(self.edMissedLetters, SIGNAL("textChanged(QString)"), self.UpdateMissedLetters)
+
+        self.connect(
+            self.cbTestCase,
+            SIGNAL("activated(int)"),
+            self.UpdateUiByTestCase
+        )
+
+        self.connect(
+            self.edMissedLetters,
+            SIGNAL("textChanged(QString)"),
+            self.UpdateMissedLetters
+        )
+
         self.LoadDialogFromPickle()
 
     def TestGenerate(self):
@@ -41,7 +52,14 @@ class TestDialog(QDialog):
                 if self.TestCase in [0, 1, 2]:
 
                     results = []
-                    words = tools.Shuffle(list(filter(len, self.mMemoIn.toPlainText().split('\n'))))
+                    words = tools.Shuffle(
+                        list(
+                            filter(
+                                len,
+                                self.mMemoIn.toPlainText().split('\n')
+                            )
+                        )
+                    )
 
                     if self.TestCase == 0:
                         for word in words:
