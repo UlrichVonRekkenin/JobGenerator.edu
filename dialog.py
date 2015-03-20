@@ -7,6 +7,7 @@ from os.path import isfile, getsize
 
 from tools import tools
 
+
 class TestDialog(QDialog):
     def __init__(self, parent=None):
         QDialog.__init__(self)

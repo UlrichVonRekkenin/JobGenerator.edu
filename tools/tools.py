@@ -151,7 +151,7 @@ class RegExTasker(object):
             word = random.choice(match[1:-1].split(self.separator))
 
             if word.startswith('to ') or word.startswith('not to '):
-                s = s.replace(match, 20*'_' + ' ({})'.format(word))
+                s = s.replace(match, 20 * '_' + ' ({})'.format(word))
             else:
                 s = s.replace(match, '{}'.format(word))
 
