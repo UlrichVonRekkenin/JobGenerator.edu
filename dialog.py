@@ -1,11 +1,10 @@
-﻿import sys
+import sys
+from os.path import getsize, isfile
+from tools import tools
 
 from PyQt4 import uic
-from PyQt4.QtGui import QDialog, QApplication
 from PyQt4.QtCore import SIGNAL
-from os.path import isfile, getsize
-
-from tools import tools
+from PyQt4.QtGui import QApplication, QDialog
 
 
 class TestDialog(QDialog):
@@ -23,7 +22,8 @@ class TestDialog(QDialog):
             'Match the words.',
             'Place the words in sentences on correct order.',
             'Place the sentences on correct order.',
-            'Write the correct form of the verbs in bracket.'
+            'Write the correct form of the verbs in bracket.',
+            ''
         ]
 
         self.btnTestGenerate.clicked.connect(self.TestGenerate)
@@ -105,6 +105,19 @@ class TestDialog(QDialog):
                         self.mMemoIn.toPlainText()
                     ).RandomSentence()
 
+                elif self.TestCase == 7:
+                    self.mMemoOut.insertPlainText(
+                        'NAME:\nCLASS:\n{}\n\n{}'.format(
+                            'Insert correct words: ' +
+                            ', '.join(self.edOmittedWords.text().split(',')),
+                            tools.OmittedWords(
+                                self.mMemoIn.toPlainText(),
+                                self.edOmittedWords.text()
+                            ).OmitWords()
+                        )
+                    )
+                    break
+
                 self.mMemoOut.insertPlainText(
                     'Variant #{0}\n{1}\nNAME:\nCLASS:\n{2}\n\n'.format(
                         var + 1, self.sTestCase[self.TestCase], foo
@@ -117,17 +130,26 @@ class TestDialog(QDialog):
         if self.TestCase in [0, 3, 4, 5, 6]:
             self.edMissedLetters.setEnabled(False)
             self.spUnderscorePart.setEnabled(False)
+            self.edOmittedWords.setEnabled(False)
+
         elif self.TestCase == 1:
-            self.edMissedLetters.setEnabled(False)
             self.spUnderscorePart.setEnabled(True)
+            self.edMissedLetters.setEnabled(False)
+            self.edOmittedWords.setEnabled(False)
+
         elif self.TestCase == 2:
             self.edMissedLetters.setEnabled(True)
+            self.edOmittedWords.setEnabled(False)
+            self.spUnderscorePart.setEnabled(False)
+
+        elif self.TestCase == 7:
+            self.edOmittedWords.setEnabled(True)
+            self.edMissedLetters.setEnabled(False)
             self.spUnderscorePart.setEnabled(False)
 
     def UpdateMissedLetters(self):
         self.sTestCase[2] = 'Insert correct letters: "{}"'.format(
-            str.join(
-                ',',
+            ', '.join(
                 [str(x) for x in self.edMissedLetters.text()]
             )
         )
@@ -137,13 +159,16 @@ class TestDialog(QDialog):
         import json
 
         with open(self.JSONFile, 'w') as output:
-            json.dump({
-                'MemoIn': str(self.mMemoIn.toPlainText()),
-                'MemoOut': str(self.mMemoOut.toPlainText()),
-                'Variant': int(self.spVariantNumber.text()),
-                'Missed': str(self.edMissedLetters.text()),
-                'Underscore': str(self.spUnderscorePart.text()),
-                'TestCase': int(self.cbTestCase.currentIndex())},
+            json.dump(
+                {
+                    'MemoIn': str(self.mMemoIn.toPlainText()),
+                    'MemoOut': str(self.mMemoOut.toPlainText()),
+                    'Variant': int(self.spVariantNumber.text()),
+                    'Missed': str(self.edMissedLetters.text()),
+                    'Underscore': str(self.spUnderscorePart.text()),
+                    'TestCase': int(self.cbTestCase.currentIndex()),
+                    'OmittedWords': self.edOmittedWords.text()
+                },
                 output
             )
 
@@ -162,6 +187,7 @@ class TestDialog(QDialog):
             self.spUnderscorePart.setProperty('value', d['Underscore'])
             self.cbTestCase.setCurrentIndex(d['TestCase'])
             self.TestCase = d['TestCase']
+            self.edOmittedWords.setText(d['OmittedWords'])
 
         self.UpdateUiByTestCase()
 

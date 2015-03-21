@@ -154,3 +154,18 @@ class RegExTasker(object):
                 s = s.replace(match, '{}'.format(word))
 
         return s
+
+
+class OmittedWords(object):
+    def __init__(self, paragraph='', words=''):
+        self.paragraph = paragraph
+        self.words = [word for word in words.split(',')]
+
+    def OmitWords(self):
+        for word in self.words:
+            self.paragraph = self.paragraph.replace(
+                ' {} '.format(word),
+                ' ________________ '
+            )
+
+        return self.paragraph
