@@ -84,40 +84,46 @@ class MatchCoupleOfWords(object):
             return 'There is no way to shuffle. Please, add more pairs.'
 
 
-class RandomOrderOfWordsInSentences(object):
+class SuperParagraph(object):
+    def __init__(self, sentences=''):
+        self.container = list(zip(
+            filter(len, re.split(r'[\.\!\?]', sentences)),
+            re.findall(r'[\.\!\?]', sentences)
+        ))
+
+
+class RandomOrderOfWordsInSentences(SuperParagraph):
     ''' Randomize all words in a given sentences. '''
     def __init__(self, sentences=''):
-        self.sentences = tuple(filter(len, sentences.split('.')))
+        SuperParagraph.__init__(self, sentences)
 
     def RandomWords(self):
-        self.result = ''
+        result = ''
 
-        for i, sentence in enumerate(self.sentences, start=1):
-            self.result += '{0}) {1}.\n'.format(
-                i, str.join(' ', Shuffle(
-                    list(
-                        filter(len, tuple(
-                            filter(len, str(sentence).lower().split(' '))
-                        ))
-                    )
-                ))
+        for i, sent in enumerate(self.container, start=1):
+            result += '{}) {}{}\n'.format(
+                i,
+                ' '.join(
+                    [w.lower() for w in Shuffle(list(re.split('\W+', sent[0])))]
+                ),
+                sent[1]
             )
 
-        return self.result
+        return result
 
 
-class RandomOrderOfSentenceInParagraph(object):
+class RandomOrderOfSentenceInParagraph(SuperParagraph):
     ''''''
     def __init__(self, sentences=''):
-        self.sentences = list(filter(len, str(sentences).split('.')))
+        SuperParagraph.__init__(self, sentences)
 
     def RandomSentence(self):
-        self.result = ''
+        result = ''
 
-        for i, sentence in enumerate(Shuffle(self.sentences), start=1):
-            self.result += '{}) {}.\n'.format(i, sentence)
+        for i, sentence in enumerate(Shuffle(self.container), start=1):
+            result += '{}) {}{}\n'.format(i, *sentence)
 
-        return self.result
+        return result
 
 
 class RegExWrapper(object):
@@ -126,7 +132,10 @@ class RegExWrapper(object):
 
     def RandomSentence(self):
         ret = ''
-        for i, s in enumerate(list(filter(len, self.sentences.split('\n'))), start=1):
+        for i, s in enumerate(
+            list(filter(len, self.sentences.split('\n'))),
+            start=1
+        ):
             ret += '{}) {}\n'.format(i, RegExTasker(s).do())
 
         return ret
@@ -159,13 +168,15 @@ class RegExTasker(object):
 class OmittedWords(object):
     def __init__(self, paragraph='', words=''):
         self.paragraph = paragraph
-        self.words = [word for word in words.split(',')]
+        self.words = [word.strip() for word in words.split(',')]
 
     def OmitWords(self):
         for word in self.words:
-            self.paragraph = self.paragraph.replace(
-                ' {} '.format(word),
-                ' ________________ '
+            self.paragraph = re.sub(
+                word,
+                15*'_',
+                self.paragraph,
+                flags=re.IGNORECASE
             )
 
         return self.paragraph

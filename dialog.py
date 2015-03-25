@@ -167,7 +167,8 @@ class TestDialog(QDialog):
                     'Missed': str(self.edMissedLetters.text()),
                     'Underscore': str(self.spUnderscorePart.text()),
                     'TestCase': int(self.cbTestCase.currentIndex()),
-                    'OmittedWords': self.edOmittedWords.text()
+                    'OmittedWords': self.edOmittedWords.text(),
+                    'Geo':  self.geometry().getRect()
                 },
                 output
             )
@@ -188,6 +189,8 @@ class TestDialog(QDialog):
             self.cbTestCase.setCurrentIndex(d['TestCase'])
             self.TestCase = d['TestCase']
             self.edOmittedWords.setText(d['OmittedWords'])
+
+            self.setGeometry(*d['Geo'])
 
         self.UpdateUiByTestCase()
 
