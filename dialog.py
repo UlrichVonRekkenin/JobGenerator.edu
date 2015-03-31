@@ -3,8 +3,15 @@ from os.path import getsize, isfile
 from tools import tools
 
 from PyQt4 import uic
+from PyQt4 import QtCore
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QApplication, QDialog
+
+
+class HelpDialog(QDialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self)
+        uic.loadUi('tools/help_widget.ui', self)
 
 
 class TestDialog(QDialog):
@@ -39,8 +46,6 @@ class TestDialog(QDialog):
             SIGNAL("textChanged(QString)"),
             self.UpdateMissedLetters
         )
-
-        self.LoadDialogFromPickle()
 
     def TestGenerate(self):
 
@@ -154,26 +159,7 @@ class TestDialog(QDialog):
             )
         )
 
-    def closeEvent(self, event):
-        ''' Event::closeEvent = When app is closed save the state. '''
-        import json
-
-        with open(self.JSONFile, 'w') as output:
-            json.dump(
-                {
-                    'MemoIn': str(self.mMemoIn.toPlainText()),
-                    'MemoOut': str(self.mMemoOut.toPlainText()),
-                    'Variant': int(self.spVariantNumber.text()),
-                    'Missed': str(self.edMissedLetters.text()),
-                    'Underscore': str(self.spUnderscorePart.text()),
-                    'TestCase': int(self.cbTestCase.currentIndex()),
-                    'OmittedWords': self.edOmittedWords.text(),
-                    'Geo':  self.geometry().getRect()
-                },
-                output
-            )
-
-    def LoadDialogFromPickle(self):
+    def showEvent(self, event):
         import json
 
         if isfile(self.JSONFile) and getsize(self.JSONFile):
@@ -193,6 +179,33 @@ class TestDialog(QDialog):
             self.setGeometry(*d['Geo'])
 
         self.UpdateUiByTestCase()
+
+    def closeEvent(self, event):
+        ''' Event::closeEvent = When app is closed save the state. '''
+        import json
+
+        with open(self.JSONFile, 'w') as output:
+            json.dump(
+                {
+                    'MemoIn': str(self.mMemoIn.toPlainText()),
+                    'MemoOut': str(self.mMemoOut.toPlainText()),
+                    'Variant': int(self.spVariantNumber.text()),
+                    'Missed': str(self.edMissedLetters.text()),
+                    'Underscore': str(self.spUnderscorePart.text()),
+                    'TestCase': int(self.cbTestCase.currentIndex()),
+                    'OmittedWords': self.edOmittedWords.text(),
+                    'Geo': self.geometry().getRect()
+                },
+                output
+            )
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_F1:
+            help = HelpDialog(self)
+            help.exec_()
+
+        elif event.key() == QtCore.Qt.Key_Escape:
+            self.close()
 
 
 if __name__ == "__main__":
