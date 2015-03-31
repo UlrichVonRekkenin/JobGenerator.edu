@@ -13,29 +13,29 @@ def Shuffle(sequence):
 
 class RandomOrderOfLetters(object):
     ''' Make letters in a random order of a given word. '''
-    def __init__(self, word):
+    def __init__(self, word=''):
         self.word = word
 
     def RandomLetters(self):
-        return ''.join([str(x) for x in Shuffle(list(self.word))])
+        return ' '.join(
+            [''.join([
+                str(x) for x in Shuffle(list(w))
+            ]) for w in self.word.split()]
+        )
 
 
 class ReplaceSomeLettersByUnderline(object):
     ''' Replace some letters by _ in a given word. '''
-    def __init__(self, word, percent=50):
+    def __init__(self, word='', percent=50):
         self.word = word
         self.percent = percent
-        self.lenght = len(self.word)
 
     def ReplaceLetters(self):
         ret = ''
 
         for split_word in self.word.split():
-            rword = list(split_word)
-            for i in random.sample(
-                range(len(split_word)),
-                int(len(split_word) * self.percent / 100.)
-            ):
+            rword, range_splitted = list(split_word), range(len(split_word))
+            for i in random.sample(range_splitted, int(len(split_word) * self.percent / 100)):
                 rword[i] = " __ "
             ret += ''.join([str(x) for x in rword]) + 5 * ' '
 
@@ -174,7 +174,7 @@ class OmittedWords(object):
         for word in self.words:
             self.paragraph = re.sub(
                 word,
-                15*'_',
+                15 * '_',
                 self.paragraph,
                 flags=re.IGNORECASE
             )

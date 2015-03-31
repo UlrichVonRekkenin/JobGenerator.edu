@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Генератор заданий</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>jg.bmp</normaloff>jg.bmp</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QComboBox" name="cbTestCase">
