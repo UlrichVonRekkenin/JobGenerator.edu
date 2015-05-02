@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>help.bmp</file>
+    <file>jg.bmp</file>
+  </qresource>
+</RCC>

@@ -2,8 +2,7 @@ import sys
 from os.path import getsize, isfile
 from tools import tools
 
-from PyQt4 import uic
-from PyQt4 import QtCore
+from PyQt4 import QtCore, uic
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QApplication, QDialog
 
