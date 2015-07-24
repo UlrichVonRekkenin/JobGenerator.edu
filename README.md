@@ -105,12 +105,12 @@ Variant \#n+1
 Write the correct form of the verbs in bracket.  
 NAME:  
 CLASS:  
-1. She  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to walk) tomorrow there.
-2. I \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to walk) tomorrow there.
-3. We \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (not to go) never there.
-4. She \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to walk) tomorrow there.
-5. \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (not to walk) she with me yesterday to the circus?
-6. \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to go) you with me yesterday to the zoo?**
+* She  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to walk) tomorrow there.
+* I \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to walk) tomorrow there.
+* We \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (not to go) never there.
+* She \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to walk) tomorrow there.
+* \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (not to walk) she with me yesterday to the circus?
+* \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (to go) you with me yesterday to the zoo?
 
 ## **Пропустить слова в предложении**
 Заменяет все слова, указанные в параметре "*Пропусить слова*" (регистронезависимо), на нижнее подчеркивание. Примечание: возвращает только один вариант. Пример:  
