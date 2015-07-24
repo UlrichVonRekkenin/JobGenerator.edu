@@ -1,1 +1,1 @@
-__all__ = [ 'uidialog', 'tools' ]
+__all__ = [ 'tools', 'githubapi']

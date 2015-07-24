@@ -1,10 +1,10 @@
+import copy
 import random
 import re
 
 
 def Shuffle(sequence):
     ''' Return a shuffled sequence. '''
-    import copy
     seqin = copy.copy(sequence)
     while (sequence == seqin):
         random.shuffle(sequence)
