@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>help.bmp</normaloff>help.bmp</iconset>
+    <normaloff>help.ico</normaloff>help.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
