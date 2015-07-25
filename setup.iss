@@ -15,7 +15,7 @@ AppVersion={#Version}
 AppPublisher={#Author}
 AppPublisherURL={#Site}
 AppUpdatesURL={#Release}
-DefaultDirName={pf}\Task Generator
+DefaultDirName={userdocs}\Task Generator
 DefaultGroupName={#Name}
 OutputDir=setup
 OutputBaseFileName=Setup-{#Name}-{#Version}
@@ -26,7 +26,6 @@ SolidCompression=yes
 [Files]
 Source: "{#BuildPath}{#ExeName}"; DestDir: "{app}"; Flags: ignoreversion touch
 Source: "{#BuildPath}cacert.pem"; DestDir: "{app}"; Flags: ignoreversion touch
-;Source: "{#BuildPath}tools\*.py"; DestDir: "{app}\tools"; Flags: ignoreversion
 Source: "{#BuildPath}tools\*.ico"; DestDir: "{app}\tools"; Flags: ignoreversion
 Source: "{#BuildPath}tools\*.ui"; DestDir: "{app}\tools"; Flags: ignoreversion
 Source: "{#BuildPath}msvcp100.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -52,10 +51,9 @@ Name: "{app}\tools"
 [UninstallDelete]
 Type: files; Name: "{app}\dialog.json"
 Type: filesandordirs; Name: "{app}\tools"
+Type: files; Name: "{app}\qt.conf"
 
 
 [Icons]
 Name: {commondesktop}\{#Name}; Filename: {app}\{#Name}.exe; WorkingDir: {app}; IconFilename: "{#Ico}";
 Name: {group}\{#Name}; Filename: {app}\{#Name}.exe; WorkingDir: {app}; IconFilename: "{#Ico}";
-Name: {commonstartup}\{#Name}; Filename: {app}\{#Name}.exe; WorkingDir: {app}; IconFilename: "{#Ico}";
-Name: {group}\uninstall; Filename: {app}\unins000.exe; WorkingDir: {app}; IconFilename: "{#Ico}";

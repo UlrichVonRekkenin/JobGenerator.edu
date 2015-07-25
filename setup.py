@@ -1,6 +1,6 @@
 import sys
-import requests.certs
 
+import requests.certs
 from cx_Freeze import Executable, setup
 
 '''
@@ -28,7 +28,7 @@ setup(
                 'tools',
                 # to importing requests for freezing app
                 (requests.certs.where(), 'cacert.pem')
-                ],
+            ],
             'silent': True,
         }
     },
